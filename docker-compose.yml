@@ -1,0 +1,41 @@
+version: '3'
+
+volumes:
+    local_postgres_data: {}
+    local_postgres_data_backups: {}
+
+services:
+
+  backend:
+    build:
+      context: ./myratingbud-backend
+      dockerfile: ../Dockerfile.backend
+    depends_on:
+      - postgres
+    volumes:
+      - ./myratingbud-backend/:/app:z
+    env_file:
+      - ./myratingbud-backend/.envs/.local/.django
+      - ./myratingbud-backend/.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    image: postgres:12.3
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+    env_file:
+      - ./myratingbud-backend/.envs/.local/.postgres
+
+  frontend:
+    build:
+      context: ./myratingbud-frontend
+      dockerfile: ../Dockerfile.frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./myratingbud-frontend:/app
+      - /app/node_modules
+    stdin_open: true
