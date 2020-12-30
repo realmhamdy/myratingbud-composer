@@ -1,0 +1,6 @@
+[submodule "myratingbud-backend"]
+	path = myratingbud-backend
+	url = git@github.com:realmhamdy/myratingbud-backend.git
+[submodule "myratingbud-frontend"]
+	path = myratingbud-frontend
+	url = git@github.com:realmhamdy/myratingbud-frontend.git
