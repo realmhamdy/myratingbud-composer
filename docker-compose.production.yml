@@ -9,7 +9,7 @@ services:
   backend:
     build:
       context: ./myratingbud-backend
-      dockerfile: ../docker-compose/local/backend/Dockerfile
+      dockerfile: ./compose/local/django/Dockerfile
     depends_on:
       - postgres
     volumes:
@@ -32,9 +32,9 @@ services:
   frontend:
     build:
       context: ./myratingbud-frontend
-      dockerfile: ../docker-compose/local/frontend/Dockerfile
+      dockerfile: ../docker-compose/production/frontend/Dockerfile
     ports:
-      - 3000:3000
+      - 80:5000
     volumes:
       - ./myratingbud-frontend:/app
       - /app/node_modules
