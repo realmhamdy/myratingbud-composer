@@ -20,6 +20,7 @@ services:
     ports:
       - "8000:8000"
     command: /start
+    restart: unless-stopped
 
   postgres:
     image: postgres:12.3
@@ -28,6 +29,7 @@ services:
       - local_postgres_data_backups:/backups:z
     env_file:
       - ./myratingbud-backend/.envs/.local/.postgres
+    restart: unless-stopped
 
   frontend:
     build:
@@ -39,3 +41,4 @@ services:
       - ./myratingbud-frontend:/app
       - /app/node_modules
     stdin_open: true
+    restart: unless-stopped
